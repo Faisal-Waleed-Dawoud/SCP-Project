@@ -3,6 +3,7 @@
 import { authorizeDbCallWithUserId } from "@/lib/db/calls"
 import { MAX_ROWS, Status } from "@/lib/types"
 import mysql from "mysql2/promise"
+import { cacheTag, updateTag } from "next/cache"
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
@@ -22,6 +23,7 @@ const pool = mysql.createPool({
 
 const getCoursesCache = async (userId:string, query?: string, pageNumber?:number) => {
     "use cache"
+    cacheTag("courses")
     
     let offset = 0;
     if (pageNumber) {
@@ -57,6 +59,7 @@ export const getCourses = async(query?:string, pageNumber?:number) => {
 
 const getCoursesCountCache = async(userId:string, query?:string) => {
     "use cache"
+    cacheTag("courses")
     try {
         const [uniId] = await pool.query(`
             SELECT partner_uni_id FROM partner_uni_admission WHERE user_id = ?`, [userId]) as any[]
@@ -88,6 +91,7 @@ export const insertCourse = async(courseName: string, courseCode: string, syllab
             courses (course_name, course_code, syllabus, course_status, admission_id, partner_uni_id)
             VALUES(?, ?, ?, ?, ?, ?)`, 
             [courseName, courseCode, syllabus, status, admissionId, partnerUniId])
+            updateTag("courses")
     } catch(error) {
         return error
     }

@@ -2,6 +2,7 @@
 import { authorizeDbCall } from "@/lib/db/calls"
 import { MAX_ROWS, Status } from "@/lib/types"
 import mysql, { QueryError } from "mysql2/promise"
+import { cacheTag, updateTag } from "next/cache"
 
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
@@ -21,6 +22,7 @@ const pool = mysql.createPool({
 
 const getUniCoursesCache = async (query?: string, pageNumber?: number) => {
     "use cache"
+    cacheTag("courses")
     let offset = 0;
     if (pageNumber) {
         offset = --pageNumber * MAX_ROWS;
@@ -59,6 +61,7 @@ export const getUniCourses = async (query?: string, pageNumber?: number) => {
 
 const getUniCoursesCountCache = async (query?: string) => {
     "use cache"
+    cacheTag("courses")
     try {
         if (query) {
             const [count] = await pool.query(`
@@ -97,6 +100,7 @@ export const acceptCourse = async (admissionId: string, courseId: string) => {
             admission_id = ?
             WHERE course_id = ?
             `, [Status.approved, admissionId, courseId])
+            updateTag("courses")
     } catch (error) {
         return error
     }
@@ -110,6 +114,7 @@ export const rejectCourse = async (admissionId: string, courseId: string) => {
             admission_id = ?
             WHERE course_id = ?
             `, [Status.rejected, admissionId, courseId])
+            updateTag("courses")
         return
     } catch (error) {
         return error as QueryError
@@ -124,6 +129,7 @@ export const stopProvideCourse = async (admissionId: string, courseId: string) =
             admission_id = ?
             WHERE course_id = ?
             `, [Status.rejected, admissionId, courseId])
+            updateTag("courses")
     } catch (error) {
         return error as QueryError
     }

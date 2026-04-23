@@ -104,6 +104,7 @@ export const getEnrollments = async (query?: string, status?: string, pageNumber
 
 export const getEnrollmentsCountCache = async (query?: string, status?: string) => {
     "use cache"
+    cacheTag("enrollments")
     try {
         if (query && status) {
             const [count] = await pool.query(`
