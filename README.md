@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Summer Course Platform
 
-## Getting Started
+A full-stack web application that streamlines summer course registration across universities, connecting University of Prince Mugrin students, UPM, and partner universities in a unified platform
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This platform simplifies the process of cross-university summer enrollment by providing a centralized, role-based system where:
+* Students request courses from partner universities
+* UPM admission committee reviews and manages requests
+* Partner universities approve requests and handle enrollments
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Problem
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Traditional summer course registration is:
+* Manual and inefficient
+* Prone to delays and errors
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Class Diagram
 
-To learn more about Next.js, take a look at the following resources:
+<img width="1111" height="1060" alt="Class-diagram drawio" src="https://github.com/user-attachments/assets/4ae2f810-387e-4cf9-b8c5-ef9ef8e3e5be" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Demo
+You can try the website: https://summer-courses-platform.netlify.app/
+* For admission, use the email: u.preview@upm.edu.sa with the password: testuser1
+* For the partner university admission, use the email: admission@preview.com with the password: testuser2
